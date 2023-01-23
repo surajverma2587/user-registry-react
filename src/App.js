@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { AddUserFrom } from "./components/AddUserForm";
+import { ConfirmationModal } from "./components/ConfirmationModal";
+import { Error } from "./components/Error";
+import { SuccessModal } from "./components/SuccessModal";
+import { UserCard } from "./components/UserCard";
+import { Users } from "./components/Users";
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AddUserFrom />
+      <Error />
+      <Users>
+        <UserCard />
+        <UserCard />
+        <UserCard />
+      </Users>
+      <ConfirmationModal />
+      <SuccessModal />
     </div>
   );
-}
-
-export default App;
+};
