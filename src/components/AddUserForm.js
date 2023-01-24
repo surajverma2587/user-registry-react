@@ -1,10 +1,12 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { v4 as uuidv4 } from "uuid";
 import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { getFromLocalStorage } from "../utils/getFromLocalStorage";
 
-export const AddUserFrom = () => {
+export const AddUserFrom = ({ setUsers }) => {
   const initialValues = {
     title: "",
     firstName: "",
@@ -44,7 +46,18 @@ export const AddUserFrom = () => {
   });
 
   const onSubmit = (formData) => {
-    console.log(formData);
+    const usersFromLS = getFromLocalStorage("users", []);
+
+    const newUser = {
+      ...formData,
+      id: uuidv4(),
+    };
+
+    usersFromLS.push(newUser);
+
+    localStorage.setItem("users", JSON.stringify(usersFromLS));
+
+    setUsers(usersFromLS);
   };
 
   const formik = useFormik({
@@ -69,6 +82,7 @@ export const AddUserFrom = () => {
               id="title"
               value={formik.values.title}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             >
               <option value="" disabled>
                 Select title
@@ -78,7 +92,11 @@ export const AddUserFrom = () => {
               <option value="Ms.">Ms.</option>
               <option value="Dr.">Dr.</option>
             </Form.Select>
-            <Form.Text className="text-danger">{formik.errors.title}</Form.Text>
+            {formik.touched.title && formik.errors.title && (
+              <Form.Text className="text-danger">
+                {formik.errors.title}
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -90,10 +108,13 @@ export const AddUserFrom = () => {
               id="firstName"
               value={formik.values.firstName}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-            <Form.Text className="text-danger">
-              {formik.errors.firstName}
-            </Form.Text>
+            {formik.touched.firstName && formik.errors.firstName && (
+              <Form.Text className="text-danger">
+                {formik.errors.firstName}
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -105,10 +126,13 @@ export const AddUserFrom = () => {
               id="lastName"
               value={formik.values.lastName}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-            <Form.Text className="text-danger">
-              {formik.errors.lastName}
-            </Form.Text>
+            {formik.touched.lastName && formik.errors.lastName && (
+              <Form.Text className="text-danger">
+                {formik.errors.lastName}
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -120,6 +144,7 @@ export const AddUserFrom = () => {
               type="radio"
               checked={formik.values.gender === "male"}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
             <Form.Check
               label="Female"
@@ -128,6 +153,7 @@ export const AddUserFrom = () => {
               type="radio"
               checked={formik.values.gender === "female"}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
           </Form.Group>
 
@@ -140,8 +166,11 @@ export const AddUserFrom = () => {
               id="age"
               value={formik.values.age}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-            <Form.Text className="text-danger">{formik.errors.age}</Form.Text>
+            {formik.touched.age && formik.errors.age && (
+              <Form.Text className="text-danger">{formik.errors.age}</Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -152,8 +181,13 @@ export const AddUserFrom = () => {
               id="email"
               value={formik.values.email}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-            <Form.Text className="text-danger">{formik.errors.email}</Form.Text>
+            {formik.touched.email && formik.errors.email && (
+              <Form.Text className="text-danger">
+                {formik.errors.email}
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -165,10 +199,13 @@ export const AddUserFrom = () => {
               id="profileUrl"
               value={formik.values.profileUrl}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-            <Form.Text className="text-danger">
-              {formik.errors.profileUrl}
-            </Form.Text>
+            {formik.touched.profileUrl && formik.errors.profileUrl && (
+              <Form.Text className="text-danger">
+                {formik.errors.profileUrl}
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -180,10 +217,13 @@ export const AddUserFrom = () => {
               id="linkedInUrl"
               value={formik.values.linkedInUrl}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-            <Form.Text className="text-danger">
-              {formik.errors.linkedInUrl}
-            </Form.Text>
+            {formik.touched.linkedInUrl && formik.errors.linkedInUrl && (
+              <Form.Text className="text-danger">
+                {formik.errors.linkedInUrl}
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -195,10 +235,13 @@ export const AddUserFrom = () => {
               id="githubUrl"
               value={formik.values.githubUrl}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-            <Form.Text className="text-danger">
-              {formik.errors.githubUrl}
-            </Form.Text>
+            {formik.touched.githubUrl && formik.errors.githubUrl && (
+              <Form.Text className="text-danger">
+                {formik.errors.githubUrl}
+              </Form.Text>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -212,8 +255,11 @@ export const AddUserFrom = () => {
               id="bio"
               value={formik.values.bio}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-            <Form.Text className="text-danger">{formik.errors.bio}</Form.Text>
+            {formik.touched.bio && formik.errors.bio && (
+              <Form.Text className="text-danger">{formik.errors.bio}</Form.Text>
+            )}
           </Form.Group>
         </Stack>
 
