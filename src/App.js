@@ -1,3 +1,5 @@
+import Container from "react-bootstrap/Container";
+
 import { AddUserFrom } from "./components/AddUserForm";
 import { ConfirmationModal } from "./components/ConfirmationModal";
 import { Error } from "./components/Error";
@@ -7,7 +9,7 @@ import { Users } from "./components/Users";
 
 export const App = () => {
   return (
-    <div>
+    <Container>
       <AddUserFrom />
       <Error />
       <Users>
@@ -17,6 +19,6 @@ export const App = () => {
       </Users>
       <ConfirmationModal />
       <SuccessModal />
-    </div>
+    </Container>
   );
 };
