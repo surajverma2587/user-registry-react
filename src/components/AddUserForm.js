@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -17,12 +18,38 @@ export const AddUserFrom = () => {
     bio: "",
   };
 
+  const validationSchema = Yup.object({
+    title: Yup.string().required("Please select a title."),
+    firstName: Yup.string()
+      .required("Please enter a first name.")
+      .min(2, "Minimum character count is 2."),
+    lastName: Yup.string()
+      .required("Please enter a first name.")
+      .min(2, "Minimum character count is 2."),
+    age: Yup.number()
+      .required("Please enter an age.")
+      .min(18, "Minimum age is 18.")
+      .max(100, "Maximum age is 100."),
+    email: Yup.string()
+      .required("Please enter an email address.")
+      .email("Please enter a valid email address."),
+    profileUrl: Yup.string()
+      .required("Please enter a profile URL.")
+      .url("Please enter a valid URL."),
+    linkedInUrl: Yup.string().url("Please enter a valid URL."),
+    githubUrl: Yup.string().url("Please enter a valid URL."),
+    bio: Yup.string()
+      .min(10, "Minimum character count is 10.")
+      .max(100, "Minimum character count is 100."),
+  });
+
   const onSubmit = (formData) => {
     console.log(formData);
   };
 
   const formik = useFormik({
     initialValues,
+    validationSchema,
     onSubmit,
   });
 
@@ -51,7 +78,7 @@ export const AddUserFrom = () => {
               <option value="Ms.">Ms.</option>
               <option value="Dr.">Dr.</option>
             </Form.Select>
-            <Form.Text className="text-danger">Title error</Form.Text>
+            <Form.Text className="text-danger">{formik.errors.title}</Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -64,7 +91,9 @@ export const AddUserFrom = () => {
               value={formik.values.firstName}
               onChange={formik.handleChange}
             />
-            <Form.Text className="text-danger">First name error</Form.Text>
+            <Form.Text className="text-danger">
+              {formik.errors.firstName}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -77,7 +106,9 @@ export const AddUserFrom = () => {
               value={formik.values.lastName}
               onChange={formik.handleChange}
             />
-            <Form.Text className="text-danger">Last name error</Form.Text>
+            <Form.Text className="text-danger">
+              {formik.errors.lastName}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -110,20 +141,19 @@ export const AddUserFrom = () => {
               value={formik.values.age}
               onChange={formik.handleChange}
             />
-            <Form.Text className="text-danger">Age error</Form.Text>
+            <Form.Text className="text-danger">{formik.errors.age}</Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
-              type="email"
               placeholder="Enter email address"
               name="email"
               id="email"
               value={formik.values.email}
               onChange={formik.handleChange}
             />
-            <Form.Text className="text-danger">Email address error</Form.Text>
+            <Form.Text className="text-danger">{formik.errors.email}</Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -136,7 +166,9 @@ export const AddUserFrom = () => {
               value={formik.values.profileUrl}
               onChange={formik.handleChange}
             />
-            <Form.Text className="text-danger">Profile URL error</Form.Text>
+            <Form.Text className="text-danger">
+              {formik.errors.profileUrl}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -149,7 +181,9 @@ export const AddUserFrom = () => {
               value={formik.values.linkedInUrl}
               onChange={formik.handleChange}
             />
-            <Form.Text className="text-danger">LinkedIn URL error</Form.Text>
+            <Form.Text className="text-danger">
+              {formik.errors.linkedInUrl}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -162,7 +196,9 @@ export const AddUserFrom = () => {
               value={formik.values.githubUrl}
               onChange={formik.handleChange}
             />
-            <Form.Text className="text-danger">GitHub URL error</Form.Text>
+            <Form.Text className="text-danger">
+              {formik.errors.githubUrl}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -177,7 +213,7 @@ export const AddUserFrom = () => {
               value={formik.values.bio}
               onChange={formik.handleChange}
             />
-            <Form.Text className="text-danger">Bio error</Form.Text>
+            <Form.Text className="text-danger">{formik.errors.bio}</Form.Text>
           </Form.Group>
         </Stack>
 
