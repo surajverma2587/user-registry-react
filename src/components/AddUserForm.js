@@ -58,7 +58,10 @@ export const AddUserFrom = ({ setUsers, setShowSuccessModal }) => {
     localStorage.setItem("users", JSON.stringify(usersFromLS));
 
     setUsers(usersFromLS);
+
     setShowSuccessModal(true);
+
+    formik.resetForm();
   };
 
   const formik = useFormik({
