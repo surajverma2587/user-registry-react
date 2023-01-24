@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { getFromLocalStorage } from "../utils/getFromLocalStorage";
 
-export const AddUserFrom = ({ setUsers }) => {
+export const AddUserFrom = ({ setUsers, setShowSuccessModal }) => {
   const initialValues = {
     title: "",
     firstName: "",
@@ -58,6 +58,7 @@ export const AddUserFrom = ({ setUsers }) => {
     localStorage.setItem("users", JSON.stringify(usersFromLS));
 
     setUsers(usersFromLS);
+    setShowSuccessModal(true);
   };
 
   const formik = useFormik({

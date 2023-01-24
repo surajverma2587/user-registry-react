@@ -9,6 +9,7 @@ import { getFromLocalStorage } from "./utils/getFromLocalStorage";
 
 export const App = () => {
   const [users, setUsers] = useState();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
     const usersFromLS = getFromLocalStorage("users", []);
@@ -16,12 +17,22 @@ export const App = () => {
     setUsers(usersFromLS);
   }, []);
 
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
+  };
+
   return (
     <Container>
-      <AddUserFrom setUsers={setUsers} />
+      <AddUserFrom
+        setUsers={setUsers}
+        setShowSuccessModal={setShowSuccessModal}
+      />
       {users && <Users users={users} />}
       <ConfirmationModal />
-      <SuccessModal />
+      <SuccessModal
+        showSuccessModal={showSuccessModal}
+        handleSuccessModalClose={handleSuccessModalClose}
+      />
     </Container>
   );
 };
