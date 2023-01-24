@@ -2,7 +2,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 
-export const UserCard = ({ user }) => {
+export const UserCard = ({ user, handleDelete }) => {
   return (
     <Card className="user-card my-2">
       <Card.Img variant="top" src={user.profileUrl} />
@@ -30,7 +30,7 @@ export const UserCard = ({ user }) => {
         <hr />
         {user.bio && <Card.Text>{user.bio}</Card.Text>}
         <Stack>
-          <Button variant="danger">
+          <Button variant="danger" onClick={() => handleDelete(user.id)}>
             <i className="fa-solid fa-trash me-3" />
             Remove
           </Button>
